@@ -8,20 +8,16 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "dependencies": {
-<<<<<<< HEAD
-    "mongoose": "^8.14.2",
-    "mongose": "^0.0.2-security",
-=======
-   "mongoose": "^8.14.2",
->>>>>>> a1e005eaf518de192d806fe2461114f62182a76b
-    "next": "15.3.2",
-    "next-auth": "^4.24.11",
-    "razorpay": "^2.9.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-toastify": "^11.0.5"
-  },
+"dependencies": {
+  "mongoose": "^8.14.2",
+  "next": "15.3.2",
+  "next-auth": "^4.24.11",
+  "razorpay": "^2.9.6",
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0",
+  "react-toastify": "^11.0.5"
+},
+
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
