@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "mongose": "^0.0.2-security",
+   "mongoose": "^8.14.2",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "razorpay": "^2.9.6",
