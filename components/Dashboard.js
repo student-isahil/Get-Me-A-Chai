@@ -8,20 +8,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
 
 const Dashboard = () => {
-    const { data: session, update } = useSession()
+    const { data: session, status, update } = useSession()
     const router = useRouter()
     const [form, setform] = useState({})
 
     useEffect(() => {
-        console.log(session)
-
-        if (!session) {
+        if (status === "unauthenticated") {
             router.push('/')
-        }
-        else {
+        } else if (status === "authenticated") {
             getData()
         }
-    }, [])
+    }, [status])
 
     const getData = async () => {
         let u = await fetchuser(session.user.name)

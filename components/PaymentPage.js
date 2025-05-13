@@ -19,14 +19,13 @@ const PaymentPage = ({ username }) => {
     const router = useRouter()
 
     const { data: session, status } = useSession()
-    if (!session) {
-        const router = useRouter()
-        router.push('/')
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push('/')
+    } else if (status === "authenticated") {
+      getData()
     }
-
-    useEffect(() => {
-        getData()
-    }, [])
+  }, [status]) 
 
     useEffect(() => {
         if (searchParams.get("paymentdone") == "true") {
