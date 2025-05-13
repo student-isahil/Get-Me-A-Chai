@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
 import { useSearchParams } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
-import { useRouter } from 'next/navigation'
 import { notFound } from "next/navigation"
 
 const PaymentPage = ({ username }) => {
