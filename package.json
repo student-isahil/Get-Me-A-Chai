@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "mongoose": "^8.14.2",
     "mongose": "^0.0.2-security",
+=======
+   "mongoose": "^8.14.2",
+>>>>>>> a1e005eaf518de192d806fe2461114f62182a76b
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "razorpay": "^2.9.6",
@@ -25,5 +29,8 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "tailwindcss": "^4"
-  }
+  },
+  "engines": {
+  "node": "16.x"
+}
 }
