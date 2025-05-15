@@ -42,6 +42,7 @@ const PaymentPage = ({ username }) => {
                 transition: Bounce,
             });
         }
+        router.push(`https://get-me-a-chai-vedj.onrender.com/${username}`)
 
     }, [])
 
