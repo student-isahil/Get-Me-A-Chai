@@ -6,6 +6,7 @@ import Link from 'next/link'
 const Navbar = () => {
   const { data: session } = useSession()
   const [showdropdown, setShowdropdown] = useState(false)
+  const [showdropdown1, setShowdropdown1] = useState(false)
 
 
   return (
