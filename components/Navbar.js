@@ -20,7 +20,7 @@ const Navbar = () => {
 
 
       <div className='relative flex justify-center items-center   gap-1'>
-            { <>
+            {!session && <>
           <button onClick={() => setShowdropdown1(!showdropdown1)} onBlur={() => {
             setTimeout(() => {
               setShowdropdown1(false)
