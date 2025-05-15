@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           </div>
           <Footer />
         </SessionWrapper>
-             <script src="https://cdn.lordicon.com/lordicon.js"></script>
+              <Script src="https://cdn.lordicon.com/lordicon.js" strategy="lazyOnload" />
       </body>
     </html>
   );
