@@ -41,7 +41,6 @@ const PaymentPage = ({ username }) => {
                 theme: "dark",
                 transition: Bounce,
             });
-            router.push(`/${username}`)
         }
 
     }, [])
