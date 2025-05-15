@@ -13,7 +13,7 @@ function App() {
   const [passwordArray, setPasswordArray] = useState([])
 
   const getPasswords = async () => {
-    let req = await fetch("http://localhost:3000/")
+    let req = await fetch(process.env.MONGO_URI)
     let passwords = await req.json()
     setPasswordArray(passwords)
   }
@@ -60,7 +60,7 @@ function App() {
         newPassword.id = uuidv4();
       } else {
         // If it's an update, delete old version first
-        await fetch("http://localhost:3000/", {
+        await fetch(process.env.MONGO_URI, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: newPassword.id })
@@ -68,7 +68,7 @@ function App() {
       }
 
       // Save to DB
-      await fetch("http://localhost:3000/", {
+      await fetch(process.env.MONGO_URI, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newPassword)
@@ -94,7 +94,7 @@ function App() {
     if (c) {
       setPasswordArray(passwordArray.filter(item => item.id !== id))
 
-      await fetch("http://localhost:3000/", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
+      await fetch(process.env.MONGO_URI, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) })
 
       toast('Password Deleted!', {
         position: "top-right",
