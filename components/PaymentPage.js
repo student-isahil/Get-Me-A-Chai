@@ -2,46 +2,45 @@
 import React, { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
 import { useSearchParams } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Bounce } from 'react-toastify';
+import { useRouter } from 'next/navigation'
 import { notFound } from "next/navigation"
 
 const PaymentPage = ({ username }) => {
+    // const { data: session } = useSession()
 
-    const [paymentform, setPaymentform] = useState({ name: "", message: "", amount: "" })
+    const [paymentform, setPaymentform] = useState({name: "", message: "", amount: ""})
     const [currentUser, setcurrentUser] = useState({})
     const [payments, setPayments] = useState([])
     const searchParams = useSearchParams()
     const router = useRouter()
 
-    const { data: session, status } = useSession()
-  useEffect(() => {
-
-      getData()
-  }, [status]) 
+    useEffect(() => {
+        getData()
+    }, [])
 
     useEffect(() => {
-        if (searchParams.get("paymentdone") == "true") {
-            toast('Thanks for your donation!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                transition: Bounce,
+        if(searchParams.get("paymentdone") == "true"){
+        toast('Thanks for your donation!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
             });
         }
         router.push(`/${username}`)
-
+     
     }, [])
-
+    
 
     const handleChange = (e) => {
         setPaymentform({ ...paymentform, [e.target.name]: e.target.value })
@@ -51,7 +50,7 @@ const PaymentPage = ({ username }) => {
         let u = await fetchuser(username)
         setcurrentUser(u)
         let dbpayments = await fetchpayments(username)
-        setPayments(dbpayments)
+        setPayments(dbpayments) 
     }
 
 
@@ -65,7 +64,7 @@ const PaymentPage = ({ username }) => {
             "currency": "INR",
             "name": "Get Me A Chai", //your business name
             "description": "Test Transaction",
-            "image": "/icons/tea.gif",
+            "image": "https://example.com/your_logo",
             "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             "callback_url": `${process.env.NEXT_PUBLIC_URL}/api/razorpay`,
             "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
@@ -85,7 +84,7 @@ const PaymentPage = ({ username }) => {
         rzp1.open();
     }
 
-
+    
     return (
         <>
             
@@ -109,7 +108,7 @@ const PaymentPage = ({ username }) => {
 
                 </div>
                 <div className='text-slate-400'>
-                    {payments.length} Payments .   ₹{payments.reduce((a, b) => a + b.amount, 0)} raised
+                  {payments.length} Payments .   ₹{payments.reduce((a, b) => a + b.amount, 0)} raised
                 </div>
 
                 <div className="payment flex gap-3 w-[80%] mt-11 flex-col md:flex-row">
@@ -120,7 +119,7 @@ const PaymentPage = ({ username }) => {
                             {payments.length == 0 && <li>No payments yet</li>}
                             {payments.map((p, i) => {
                                 return <li key={i} className='my-4 flex gap-2 items-center'>
-                                    <img width={33} src="https://res.cloudinary.com/darj9wemb/image/upload/v1747129839/avatar_lqcq5t.gif" alt="user avatar" />
+                                    <img width={33} src="avatar.gif" alt="user avatar" />
                                     <span>
                                         {p.name} donated <span className='font-bold'>₹{p.amount}</span> with a message &quot;{p.message}&quot;
                                     </span>
@@ -135,7 +134,8 @@ const PaymentPage = ({ username }) => {
                         <div className='flex gap-2 flex-col'>
                             {/* input for name and message   */}
                             <div>
-                             <input onChange={handleChange} value={paymentform.name} name='name' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Name' />
+
+                                <input onChange={handleChange} value={paymentform.name} name='name' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Name' />
                             </div>
                             <input onChange={handleChange} value={paymentform.message} name='message' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Message' />
 
@@ -143,7 +143,7 @@ const PaymentPage = ({ username }) => {
                             <input onChange={handleChange} value={paymentform.amount} name="amount" type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Amount' />
 
 
-                            <button onClick={() => pay(Number.parseInt(paymentform.amount) * 100)} type="button" className="text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-600 disabled:from-purple-100" disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4 || paymentform.amount?.length < 1}>Pay</button>
+                            <button onClick={() => pay(Number.parseInt(paymentform.amount) * 100)} type="button" className="text-white bg-gradient-to-br from-purple-900 to-blue-900 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 disabled:bg-slate-600 disabled:from-purple-100" disabled={paymentform.name?.length < 3 || paymentform.message?.length < 4 || paymentform.amount?.length<1}>Pay</button>
 
                         </div>
                         {/* Or choose from these amounts  */}
