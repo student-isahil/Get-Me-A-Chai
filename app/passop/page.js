@@ -157,7 +157,7 @@ function App() {
           <div className="passwords text-black">
             <h2 className='font-bold text-2xl py-4'>Your Passwords</h2>
             {passwordArray.length === 0 && <div> No passwords to show</div>}
-            {passwordArray.length != 0 && <table className="table-auto w-full rounded-md overflow-hidden mb-10">
+            {passwordArray.length != 0 && <table className="  md:w-full w-[98vw] -ml-[8px] rounded-md overflow-hidden mb-10 ">
               <thead className='bg-green-800 text-white'>
                 <tr>
                   <th className='py-2'>Site</th>
@@ -166,7 +166,7 @@ function App() {
                   <th className='py-2'>Actions</th>
                 </tr>
               </thead>
-              <tbody className='bg-green-100'>
+              <tbody className='bg-green-100 break-all'>
                 {passwordArray.map((item, index) => {
                   return <tr key={index}>
                     <td className='py-2 border border-white text-center'>
