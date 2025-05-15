@@ -94,7 +94,10 @@ const PaymentPage = ({ username }) => {
         <>
             
             <ToastContainer />
-            <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
+            <Script
+                src="https://checkout.razorpay.com/v1/checkout.js"
+                strategy="afterInteractive"
+            />
 
 
             <div className='cover w-full bg-red-50 relative'>
