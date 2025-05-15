@@ -20,11 +20,8 @@ const PaymentPage = ({ username }) => {
 
     const { data: session, status } = useSession()
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push('/')
-    } else if (status === "authenticated") {
+
       getData()
-    }
   }, [status]) 
 
     useEffect(() => {
