@@ -44,7 +44,7 @@ const PaymentPage = ({ username }) => {
             router.push(`/${username}`);
         }
 
-    }, [])
+    }, [session,status])
 
 
     const handleChange = (e) => {
