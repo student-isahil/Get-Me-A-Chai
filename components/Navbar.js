@@ -1,12 +1,21 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Link from 'next/link'
 
 const Navbar = () => {
   const { data: session } = useSession()
   const [showdropdown, setShowdropdown] = useState(false)
-  const [showdropdown1, setShowdropdown1] = useState(false)
+  const [showdropdown1, setshowdropdown1] = useState(false)
+  const timeoutRef = useRef();
+  const handleFocus = () => {
+    clearTimeout(timeoutRef.current);
+  };
+  const handleBlur = () => {
+    timeoutRef.current = setTimeout(() => {
+      showdropdown(false);
+    }, 100);
+  };
 
 
   return (
@@ -21,46 +30,39 @@ const Navbar = () => {
 
       <div className='relative flex justify-center items-center   gap-1'>
             {!session && <>
-          <button onClick={() => setShowdropdown1(!showdropdown1)} onBlur={() => {
-            setTimeout(() => {
-              setShowdropdown1(false)
-            }, 100);
-          }} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white mx-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Projects<svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <button onClick={() => setshowdropdown1(!showdropdown1)} onBlur={handleBlur} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white mx-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Projects<svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
             </svg>
           </button>
 
-          <div id="dropdown" className={`z-10 ${showdropdown1 ? "" : "hidden"} absolute left-[15px] top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}>
+          <div id="dropdown" onFocus={handleFocus} className={`z-10 ${showdropdown1 ? "" : "hidden"} absolute left-[15px] top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
-                <Link href={`https://student-isahil.github.io/spotify-clone/`}  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Spotify Clone</Link>
+                <Link onClick={() => setshowdropdown1(false)} href={`https://student-isahil.github.io/spotify-clone/`}  className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Spotify Clone</Link>
               </li>
               <li>
-                <Link   href="/passop"
+                <Link onClick={() => setshowdropdown1(false)}   href="/passop"
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Password Manager</Link>
               </li> 
             </ul>
           </div></>
         }
         {session && <>
-          <button onClick={() => setShowdropdown(!showdropdown)} onBlur={() => {
-            setTimeout(() => {
-              setShowdropdown(false)
-            }, 100);
-          }} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white mx-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Account<svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+          <button onClick={() => setShowdropdown(!showdropdown)} onBlur={handleBlur}  id="dropdownDefaultButton" data-dropdown-toggle="dropdown" className="text-white mx-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Account<svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
             </svg>
           </button>
 
-          <div id="dropdown" className={`z-10 ${showdropdown ? "" : "hidden"} absolute left-[15px] top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}>
+          <div id="dropdown" onFocus={handleFocus} className={`z-10 ${showdropdown ? "" : "hidden"} absolute left-[15px] top-12 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}>
             <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
               <li>
-                <Link href="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
+                <Link onClick={() => setShowdropdown(false)} href="/dashboard" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</Link>
               </li>
               <li>
-                <Link  href={`/${session.user.name}`} 
+                <Link onClick={() => setShowdropdown(false)}  href={`/${session.user.name}`} 
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Your Page</Link>
               </li>
+        
               
             </ul>
           </div></>
