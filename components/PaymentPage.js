@@ -41,9 +41,12 @@ const PaymentPage = ({ username }) => {
                 theme: "dark",
                 transition: Bounce,
             });
+           if (session?.user?.name) {
+            router.push(`/${session.user.name}`);
+           }
         }
 
-    }, [])
+    }, [session])
 
 
     const handleChange = (e) => {
