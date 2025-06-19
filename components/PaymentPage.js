@@ -6,7 +6,10 @@ import { useRouter } from 'next/navigation'
 import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
 import { useSearchParams } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
+<<<<<<< HEAD
 import 'react-toastify/dist/ReactToastify.css';
+=======
+>>>>>>> bd37a0a (Updated full project with latest changes)
 
 const PaymentPage = ({ username }) => {
 
@@ -164,4 +167,8 @@ const PaymentPage = ({ username }) => {
     )
 }
 
+<<<<<<< HEAD
 export default PaymentPage
+=======
+export default PaymentPage
+>>>>>>> bd37a0a (Updated full project with latest changes)

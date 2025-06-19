@@ -15,8 +15,11 @@ export const initiate = async (amount, to_username, paymentform) => {
 
     var instance = new Razorpay({ key_id: user.razorpayid, key_secret: secret })
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> bd37a0a (Updated full project with latest changes)
     let options = {
         amount: Number.parseInt(amount),
         currency: "INR",
@@ -62,11 +65,16 @@ export const updateProfile = async (data, oldusername) => {
         
     }
     else{
+<<<<<<< HEAD
 
         
         await User.updateOne({email: ndata.email}, ndata)
     }
 
 
+=======
+        await User.updateOne({email: ndata.email}, ndata)
+    }
+>>>>>>> bd37a0a (Updated full project with latest changes)
 }
 

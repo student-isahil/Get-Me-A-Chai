@@ -33,4 +33,8 @@ export const POST = async (req) => {
         return NextResponse.json({success: false, message:"Payment Verification Failed"})
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> bd37a0a (Updated full project with latest changes)

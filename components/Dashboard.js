@@ -128,4 +128,8 @@ const Dashboard = () => {
     )
 }
 
+<<<<<<< HEAD
 export default Dashboard
+=======
+export default Dashboard
+>>>>>>> bd37a0a (Updated full project with latest changes)

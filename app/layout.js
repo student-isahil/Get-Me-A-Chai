@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import Script from 'next/script'
+=======
+>>>>>>> bd37a0a (Updated full project with latest changes)
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+<<<<<<< HEAD
 import SessionWrapper  from "@/components/SessionWrapper";
+=======
+import SessionWrapper from "@/components/SessionWrapper";
+import Script from "next/script";
+>>>>>>> bd37a0a (Updated full project with latest changes)
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +38,18 @@ export default function RootLayout({ children }) {
           <Navbar />
           <div className=" min-h-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] text-white">
             {children}
+<<<<<<< HEAD
 
           </div>
           <Footer />
         </SessionWrapper>
               <Script src="https://cdn.lordicon.com/lordicon.js" strategy="lazyOnload" />
+=======
+          </div>
+          <Footer />
+        </SessionWrapper>
+        <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
+>>>>>>> bd37a0a (Updated full project with latest changes)
       </body>
     </html>
   );
