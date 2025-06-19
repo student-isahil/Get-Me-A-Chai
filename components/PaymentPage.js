@@ -7,25 +7,24 @@ import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
 import { useSearchParams } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Bounce } from 'react-toastify';
-import { notFound } from "next/navigation"
 
 const PaymentPage = ({ username }) => {
 
     const [paymentform, setPaymentform] = useState({ name: "", message: "", amount: "" })
-    const [currentUser, setcurrentUser] = useState({})
+    const [currentUser, setcurrentUser] = useState([])
     const [payments, setPayments] = useState([])
     const searchParams = useSearchParams()
     const router = useRouter()
 
     const { data: session, status } = useSession()
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push('/')
-    } else if (status === "authenticated") {
-      getData()
-    }
-  }, [status]) 
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push('/')
+        }
+        if (status === "authenticated") {
+            getData()
+        }
+    }, [status])
 
 
     useEffect(() => {
@@ -39,12 +38,11 @@ const PaymentPage = ({ username }) => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                transition: Bounce,
             });
-            router.push(`/${username}`);
+            router.push(`/${username}`)
         }
 
-    }, [session,status])
+    }, [])
 
 
     const handleChange = (e) => {
@@ -92,7 +90,7 @@ const PaymentPage = ({ username }) => {
 
     return (
         <>
-            
+
             <ToastContainer />
             <Script
                 src="https://checkout.razorpay.com/v1/checkout.js"
@@ -142,7 +140,7 @@ const PaymentPage = ({ username }) => {
                         <div className='flex gap-2 flex-col'>
                             {/* input for name and message   */}
                             <div>
-                             <input onChange={handleChange} value={paymentform.name} name='name' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Name' />
+                                <input onChange={handleChange} value={paymentform.name} name='name' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Name' />
                             </div>
                             <input onChange={handleChange} value={paymentform.message} name='message' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Message' />
 
