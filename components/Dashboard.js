@@ -12,36 +12,59 @@ const Dashboard = () => {
     const router = useRouter()
     const [form, setform] = useState({})
 
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.push('/')
-        } else if (status === "authenticated") {
-            getData()
-        }
-    }, [status])
-
-    const getData = async () => {
-        let u = await fetchuser(session.user.name)
-        setform(u)
-    }
-
     const handleChange = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })
     }
 
-    const handleSubmit = async (e) => {
+    const getData = async () => {
+        const username = session?.user?.name;
+        if (!username) {
+            console.error("Username missing in session");
+            return;
+        }
+        let a = await fetchuser(username)
+        if (a) { setform(a) }
+    }
 
-        let a = await updateProfile(e, session.user.name)
-        toast('Profile Updated', {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-        });
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push('/')
+        }
+        if (status === "authenticated") {
+            getData()
+        }
+    }, [status])
+
+    const handleSubmit = async (e) => {
+        const oldusername = session?.user?.name;
+        let res = await updateProfile(e, oldusername)
+        if (res?.error) {
+            toast(res.error, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            }); 
+        } else {
+
+            toast('Update Successfully!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+
+            await update();
+
+        }
     }
 
 
@@ -53,7 +76,7 @@ const Dashboard = () => {
             <ToastContainer />
 
             <div className='container mx-auto py-5 px-6 '>
-                <h1 className='text-center my-5 text-3xl font-bold'>Welcome to your Dashboard</h1>
+                <h1 className='text-center my-8 md:text-3xl text-[16px] font-bold'>Welcome to your Dashboard - {session?.user?.name}</h1>
 
                 <form className="max-w-2xl mx-auto" action={handleSubmit}>
 
