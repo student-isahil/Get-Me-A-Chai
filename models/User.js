@@ -5,6 +5,7 @@ const UserSchema = new Schema({
     email: { type: String, required: true },
     name: { type: String},
     username: { type: String, required: true },
+    password: { type: String },
     profilepic: {type: String},
     coverpic: {type: String},
     razorpayid: { type: String },
@@ -14,4 +15,4 @@ const UserSchema = new Schema({
     });
 
  
-export default mongoose.models.User || model("User", UserSchema);;
+export default mongoose.models.User || model("User", UserSchema);
