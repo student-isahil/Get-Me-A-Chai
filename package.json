@@ -8,15 +8,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-"dependencies": {
-  "mongoose": "^8.14.2",
-  "next": "15.3.2",
-  "next-auth": "^4.24.11",
-  "razorpay": "^2.9.6",
-  "react": "^19.0.0",
-  "react-dom": "^19.0.0",
-  "react-toastify": "^11.0.5"
-},
   "dependencies": {
     "cors": "^2.8.5",
     "mongoose": "^8.14.2",
@@ -37,7 +28,6 @@
     "tailwindcss": "^4"
   },
   "engines": {
-  "node": "18.x"
-}
     "node": "18.x"
   }
+}
