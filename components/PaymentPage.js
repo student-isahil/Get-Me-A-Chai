@@ -1,48 +1,22 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import Script from 'next/script'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { fetchuser, fetchpayments, initiate } from '@/actions/useractions'
 import { useSearchParams } from 'next/navigation'
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation'
 
 const PaymentPage = ({ username }) => {
 
     const [paymentform, setPaymentform] = useState({ name: "", message: "", amount: "" })
-    const [currentUser, setcurrentUser] = useState([])
+    const [currentUser, setcurrentUser] = useState({})
     const [payments, setPayments] = useState([])
     const searchParams = useSearchParams()
     const router = useRouter()
-
-    const { data: session, status } = useSession()
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            router.push('/')
-        }
-        if (status === "authenticated") {
-            getData()
-        }
-    }, [status])
-
-
-    useEffect(() => {
-        if (searchParams.get("paymentdone") == "true") {
-            toast('Thanks for your donation!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            router.push(`/${username}`)
-        }
-
-    }, [])
-
+    const { data: session, status } = useSession();
+    const hasToastShownRef = useRef(false);
 
     const handleChange = (e) => {
         setPaymentform({ ...paymentform, [e.target.name]: e.target.value })
@@ -54,6 +28,38 @@ const PaymentPage = ({ username }) => {
         let dbpayments = await fetchpayments(username)
         setPayments(dbpayments)
     }
+
+    useEffect(() => {
+
+        if (status === 'unauthenticated') {
+            router.push("/")
+        }
+
+        if (status === "authenticated") {
+            getData()
+        }
+    }, [status])
+
+    useEffect(() => {
+        if (searchParams.get("paymentdone") === "true" && !hasToastShownRef.current) {
+            hasToastShownRef.current = true;
+            toast("Thanks for your donation!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            router.replace(`/${username}`);
+        }
+    }, []);
+
+
+
+
 
 
     const pay = async (amount) => {
@@ -89,12 +95,9 @@ const PaymentPage = ({ username }) => {
 
     return (
         <>
-
             <ToastContainer />
-            <Script
-                src="https://checkout.razorpay.com/v1/checkout.js"
-                strategy="afterInteractive"
-            />
+
+            <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
 
             <div className='cover w-full bg-red-50 relative'>
@@ -139,6 +142,7 @@ const PaymentPage = ({ username }) => {
                         <div className='flex gap-2 flex-col'>
                             {/* input for name and message   */}
                             <div>
+
                                 <input onChange={handleChange} value={paymentform.name} name='name' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Name' />
                             </div>
                             <input onChange={handleChange} value={paymentform.message} name='message' type="text" className='w-full p-3 rounded-lg bg-slate-800' placeholder='Enter Message' />
