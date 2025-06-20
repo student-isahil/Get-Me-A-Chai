@@ -72,7 +72,4 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };
-<<<<<<< HEAD
-=======
 
->>>>>>> bd37a0a (Updated full project with latest changes)
