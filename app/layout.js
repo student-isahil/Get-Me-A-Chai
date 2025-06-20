@@ -24,17 +24,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] text-white`}
-      >
-        <SessionWrapper>
+      <body className="bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] text-white">
+        <SessionWrapper> 
           <Navbar />
           <div className=" min-h-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px] text-white">
             {children}
           </div>
           <Footer />
         </SessionWrapper>
-        <Script src="https://cdn.lordicon.com/lordicon.js"></Script>
       </body>
     </html>
   );
